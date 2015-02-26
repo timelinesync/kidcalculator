@@ -103,7 +103,7 @@ class MainPage(webapp2.RequestHandler):
             		<input type="submit" value = "Check Division" name=btnDivision>
             	</form>
 		<hr>
-            	<h1>Check Math</h1>
+            	<h1>Check Order of Operations Problem</h1>
             	<form action="/results" method="post">
 
             		ANSWER: <input type="textfield" style="font-size:25px" name=txtAnswer size="10"><br><br>
