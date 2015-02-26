@@ -45,7 +45,14 @@ def div(quotient,dividend,divisor,remainder):
     else:
         response = quotient + " r " + remainder + " is not the correct QUOTIENT"                
     return response
-
+def ans(problem,answer):
+    calculatedanswer = float(eval(problem))
+    if float(calculatedanswer == float(answer)):
+	response = answer + " is the correct ANSWER, Great Job!"
+    else:
+	response = answer + " is not the correct ANSWER"
+    return response
+    
 class MainPage(webapp2.RequestHandler):
     def get(self):
         #self.response.headers['Content-Type'] = 'text/plain'
@@ -94,6 +101,22 @@ class MainPage(webapp2.RequestHandler):
             		DIVIDEND: <input type="textfield" name=txtDividend><br>
             		DIVISOR: <input type="textfield" name=txtDivisor><br><br>
             		<input type="submit" value = "Check Division" name=btnDivision>
+            	</form>
+		<hr>
+            	<h1>Check Math</h1>
+            	<form action="/results" method="post">
+
+            		ANSWER: <input type="textfield" style="font-size:25px" name=txtAnswer size="10"><br><br>
+			PROBLEM: <input type="textfield" style="font-size:25px" name=txtProblem>(Enter Problem Like (4 + 1 * 5 - 4 / 2)<br><br>
+            		<!--input type="textfield" name=txtNumber1 value="0" size="8"><input type="textfield" style="font-size:25px" name=txtSign1 value="+" size="1" maxlength="1">
+            		<input type="textfield" name=txtNumber2 value="0" size="8"><input type="textfield" style="font-size:25px" name=txtSign2 value="+" size="1" maxlength="1">
+            		<input type="textfield" name=txtNumber3 value="0" size="8"><input type="textfield" style="font-size:25px" name=txtSign3 value="+" size="1" maxlength="1">
+			<input type="textfield" name=txtNumber4 value="0" size="8"><input type="textfield" style="font-size:25px" name=txtSign4 value="+" size="1" maxlength="1">
+			<input type="textfield" name=txtNumber5 value="0" size="8"><input type="textfield" style="font-size:25px" name=txtSign5 value="+" size="1" maxlength="1">
+			<input type="textfield" name=txtNumber6 value="0" size="8"><input type="textfield" style="font-size:25px" name=txtSign6 value="+" size="1" maxlength="1">
+			<input type="textfield" name=txtNumber7 value="0" size="8"><input type="textfield" style="font-size:25px" name=txtSign7 value="+" size="1" maxlength="1">
+			<input type="textfield" name=txtNumber8 value="0" size="8"><br-->
+            		<input type="submit" value = "Check Answer" name=btnAnswer>
             	</form> 
             </body>
           </html>
@@ -126,11 +149,15 @@ class ResultsPage(webapp2.RequestHandler):
         dividend = self.request.get('txtDividend')
         divisor = self.request.get('txtDivisor')
         remainder = self.request.get('txtRemainder')
+	
+	problem = self.request.get('txtProblem')
+	answer = self.request.get('txtAnswer')
 
         addbutton = self.request.get("btnAddition")
         subbutton = self.request.get("btnSubtraction")
         mulbutton = self.request.get("btnMultiplication")
         divbutton = self.request.get("btnDivision")
+	ansbutton = self.request.get("btnAnswer")
 
         if (len(addbutton) > 0 and len(problemsum) > 0):
                 for adden in additionlist:
@@ -151,6 +178,10 @@ class ResultsPage(webapp2.RequestHandler):
                 self.response.write(dividend + " / " + divisor +"<br>")
                 self.response.write("_____<br><br>")
           	self.response.write(div(quotient,dividend,divisor,remainder))
+	elif (len(ansbutton) > 0 and len(answer) > 0):
+		self.response.write(problem + "<br>")
+		self.response.write("_____<br><br>")
+		self.response.write(ans(problem,answer))
 		
 	self.response.write("<br><br><a href='/'>Return to Home Page</a>")
 
